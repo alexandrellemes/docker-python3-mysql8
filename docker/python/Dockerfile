@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 RUN apt-get update && \
-    apt-get install -y git build-essential cmake clang libssl-dev
+    apt-get install -y git build-essential cmake clang libssl-dev wget htop unzip zip curl
 RUN python -m pip install --upgrade pip
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
@@ -15,5 +15,9 @@ RUN pip install pandas pandas_datareader
 RUN pip install mysqlclient mysql-connector-python
 RUN pip install sqlalchemy dataset pymysql
 RUN pip install jupyter ipython-sql django pytz
+RUN pip install Flask redis
+#RUN pip install dotenv
+
+EXPOSE 5000
 #ADD ./app /code/
 #COPY ./app/* /code

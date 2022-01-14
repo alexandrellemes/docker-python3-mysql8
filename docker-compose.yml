@@ -1,21 +1,21 @@
 version: '3'
 
 services:
-  mysql:
-    container_name: mysql
+  mysqldb:
+    container_name: mysqldb
     image: mysql:8.0
     environment:
       # MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_ROOT_PASSWORD: "123456"
-      MYSQL_USER: 'sample'
+      MYSQL_USER: 'test'
       MYSQL_PASSWORD: '123456'
-      MYSQL_DATABASE: 'testdb'
+      MYSQL_DATABASE: 'sample'
     volumes:
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./docker/mysql/mysql_data:/var/lib/mysql
-    command: ['mysqld', '--lower_case_table_names=0', '--default_authentication_plugin=mysql_native_password']
+#    command: ['mysqld', '--lower_case_table_names=0', '--default_authentication_plugin=mysql_native_password']
     ports:
-      - '3306:3306'
+      - 3306:3306
     restart: always
     networks:
       - code-network
@@ -26,15 +26,17 @@ services:
     build:
       context: ./docker/python
     tty: true
+    ports:
+      - 5000:5000
     volumes:
-      - ./docker/python/app:/code
+      - ./docker/app:/code
     links:
-      - mysql
+      - mysqldb
     networks:
       - code-network
 
 volumes:
-  db_data:
+  mysqldb_data:
   python3_data:
 
 networks:
