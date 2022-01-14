@@ -17,7 +17,8 @@ RUN pip install sqlalchemy dataset pymysql
 RUN pip install jupyter ipython-sql django pytz
 RUN pip install Flask redis
 #RUN pip install dotenv
+#pip freeze > requirements.txt  # lista todos os pacotes instalados.
+#pip install -r requirements.txt
 
 EXPOSE 5000
-#ADD ./app /code/
-#COPY ./app/* /code
+#ENTRYPOINT ["python3", "app.py"]
